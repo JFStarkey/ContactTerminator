@@ -45,8 +45,25 @@ const QUEUED_TASKS_QUERY = `
 async function loadQueuedCalls() {
 
     console.log(
-        "Loading queued calls..."
-    );
+    "Loading queued calls..."
+);
+
+const startTime =
+    Date.now() -
+    (24 * 60 * 60 * 1000);
+
+const endTime =
+    Date.now();
+
+console.log(
+    "Start:",
+    startTime
+);
+
+console.log(
+    "End:",
+    endTime
+);
 
     const query = `
     {
