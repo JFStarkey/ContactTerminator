@@ -9,6 +9,39 @@ let calls = [];
 // LOAD DATA
 // ===========================================
 
+const QUEUED_TASKS_QUERY = `
+{
+  taskDetails(
+    from: START_TIME
+    to: END_TIME
+    filter: {
+      and: [
+        { channelType: { equals: telephony } }
+        { status: { equals: "parked" } }
+        { direction: { equals: "inbound" } }
+        { isActive: { equals: true } }
+      ]
+    }
+  ) {
+    tasks {
+      id
+      origin
+      destination
+      isActive
+      direction
+      owner {
+        id
+        name
+      }
+      lastEntryPoint {
+        id
+        name
+      }
+    }
+  }
+}
+`;
+
 async function loadQueuedCalls() {
 
     console.log(
