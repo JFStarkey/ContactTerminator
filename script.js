@@ -1,4 +1,9 @@
-const calls = [
+// ===========================================
+// CONTACT TERMINATOR
+// VERSION 2 FOUNDATION
+// ===========================================
+
+let calls = [
     {
         interactionId: "abc123",
         queue: "Customer Service",
@@ -12,6 +17,28 @@ const calls = [
         ani: "16125559999"
     }
 ];
+
+// ===========================================
+// LOAD DATA
+// ===========================================
+
+async function loadQueuedCalls() {
+
+    console.log(
+        "Loading queued calls..."
+    );
+
+    // Placeholder
+    // Later:
+    // Search API call goes here
+
+    renderCalls();
+
+}
+
+// ===========================================
+// RENDER CALLS
+// ===========================================
 
 function renderCalls() {
 
@@ -53,7 +80,8 @@ function renderCalls() {
 
                 <br>
 
-                Interaction: ${call.interactionId}
+                Interaction:
+                ${call.interactionId}
 
             </div>
         `;
@@ -64,19 +92,25 @@ function renderCalls() {
             );
 
         checkbox.addEventListener(
-            "click",
-            () => {
-
-                updateSelectedCount();
-
-                updateCardSelection();
-
-            }
+            "change",
+            handleCheckboxChange
         );
 
-        container.appendChild(div);
+        container.appendChild(
+            div
+        );
 
     });
+
+    updateCallCount();
+
+}
+
+// ===========================================
+// COUNTERS
+// ===========================================
+
+function updateCallCount() {
 
     document.getElementById(
         "callCount"
@@ -98,6 +132,10 @@ function updateSelectedCount() {
         `Terminate Selected (${checked})`;
 
 }
+
+// ===========================================
+// CARD HIGHLIGHTING
+// ===========================================
 
 function updateCardSelection() {
 
@@ -135,9 +173,86 @@ function updateCardSelection() {
 
 }
 
-renderCalls();
+// ===========================================
+// CHECKBOX EVENT
+// ===========================================
 
-updateSelectedCount();
+function handleCheckboxChange() {
+
+    updateSelectedCount();
+
+    updateCardSelection();
+
+}
+
+// ===========================================
+// REFRESH
+// ===========================================
+
+function refreshCalls() {
+
+    console.log(
+        "Refresh requested"
+    );
+
+    loadQueuedCalls();
+
+}
+
+// ===========================================
+// TERMINATE
+// ===========================================
+
+function terminateSelectedCalls() {
+
+    const selected =
+        document.querySelectorAll(
+            ".callCheckbox:checked"
+        );
+
+    if (
+        selected.length === 0
+    ) {
+
+        alert(
+            "No contacts selected."
+        );
+
+        return;
+
+    }
+
+    const confirmed =
+        confirm(
+            `Terminate ${selected.length} contact(s)?`
+        );
+
+    if (
+        !confirmed
+    ) {
+        return;
+    }
+
+    const interactionIds =
+        Array.from(selected)
+        .map(
+            checkbox =>
+                checkbox.dataset.id
+        );
+
+    console.log(
+        "Terminate these:",
+        interactionIds
+    );
+
+    // Later:
+    // End Task API call goes here
+
+}
+
+// ===========================================
+// STARTUP
+// ===========================================
 
 document
     .getElementById(
@@ -145,15 +260,7 @@ document
     )
     .addEventListener(
         "click",
-        () => {
-
-            renderCalls();
-
-            updateSelectedCount();
-
-            updateCardSelection();
-
-        }
+        refreshCalls
     );
 
 document
@@ -162,43 +269,9 @@ document
     )
     .addEventListener(
         "click",
-        () => {
-
-            const selected =
-                document.querySelectorAll(
-                    ".callCheckbox:checked"
-                );
-
-            if (
-                selected.length === 0
-            ) {
-
-                alert(
-                    "No contacts selected."
-                );
-
-                return;
-
-            }
-
-            const confirmed =
-                confirm(
-                    `Terminate ${selected.length} contact(s)?`
-                );
-
-            if (!confirmed)
-                return;
-
-            const interactionIds =
-                Array.from(selected)
-                    .map(
-                        checkbox =>
-                            checkbox.dataset.id
-                    );
-
-            console.log(
-                interactionIds
-            );
-
-        }
+        terminateSelectedCalls
     );
+
+loadQueuedCalls();
+
+updateSelectedCount();
