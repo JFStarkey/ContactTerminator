@@ -1,16 +1,16 @@
 const calls = [
-  {
-    interactionId: "abc123",
-    queue: "Customer Service",
-    wait: "04:32:14",
-    ani: "16125551212"
-  },
-  {
-    interactionId: "xyz456",
-    queue: "Tech Support",
-    wait: "00:15:22",
-    ani: "16125559999"
-  }
+    {
+        interactionId: "abc123",
+        queue: "Customer Service",
+        wait: "04:32:14",
+        ani: "16125551212"
+    },
+    {
+        interactionId: "xyz456",
+        queue: "Tech Support",
+        wait: "00:15:22",
+        ani: "16125559999"
+    }
 ];
 
 function renderCalls() {
@@ -34,62 +34,57 @@ function renderCalls() {
 
         div.innerHTML = `
             <input
-    type="checkbox"
-    class="callCheckbox"
-    data-id="${call.interactionId}"
-    ${selectedIds.includes(call.interactionId) ? "checked" : ""}
->
-
+                type="checkbox"
+                class="callCheckbox"
+                data-id="${call.interactionId}"
+            >
 
             <div>
 
-                <strong>
-                    ${call.queue}
-                </strong>
+                <strong>${call.queue}</strong>
 
                 <br>
-                
+
                 ANI: ${call.ani}
-                
-                <br>
-                
-                <br>
 
-                Wait:
-                ${call.wait}
+                <br><br>
+
+                Wait: ${call.wait}
 
                 <br>
 
-                Interaction:
-                ${call.interactionId}
+                Interaction: ${call.interactionId}
 
             </div>
         `;
 
-      const checkbox =
-    div.querySelector(
-        ".callCheckbox"
-    );
+        const checkbox =
+            div.querySelector(
+                ".callCheckbox"
+            );
 
-checkbox.addEventListener(
-    "click",
-    () => {
+        checkbox.addEventListener(
+            "click",
+            () => {
 
-        updateSelectedCount();
+                updateSelectedCount();
 
-        updateCardSelection();
+                updateCardSelection();
 
-    }
-);
+            }
+        );
+
         container.appendChild(div);
 
     });
-document.getElementById(
-    "callCount"
-).innerText =
-    `Active Calls: ${calls.length}`;
-``
+
+    document.getElementById(
+        "callCount"
+    ).innerText =
+        `Active Calls: ${calls.length}`;
+
 }
+
 function updateSelectedCount() {
 
     const checked =
@@ -97,17 +92,9 @@ function updateSelectedCount() {
             ".callCheckbox:checked"
         ).length;
 
-    console.log(
-        "Checked count:",
-        checked
-    );
-
-    const button =
-        document.getElementById(
-            "terminateBtn"
-        );
-
-    button.innerText =
+    document.getElementById(
+        "terminateBtn"
+    ).innerText =
         `Terminate Selected (${checked})`;
 
 }
@@ -126,7 +113,7 @@ function updateCardSelection() {
                         ".callCard"
                     );
 
-                if(
+                if (
                     checkbox.checked
                 ) {
 
@@ -148,29 +135,19 @@ function updateCardSelection() {
 
 }
 
-function renderCalls(selectedIds = []) {
+renderCalls();
 
 updateSelectedCount();
 
 document
-    .getElementById("refreshBtn")
+    .getElementById(
+        "refreshBtn"
+    )
     .addEventListener(
         "click",
         () => {
 
-            const selectedIds =
-                Array.from(
-                    document.querySelectorAll(
-                        ".callCheckbox:checked"
-                    )
-                ).map(
-                    checkbox =>
-                        checkbox.dataset.id
-                );
-
-            renderCalls(
-                selectedIds
-            );
+            renderCalls();
 
             updateSelectedCount();
 
@@ -178,7 +155,8 @@ document
 
         }
     );
-  document
+
+document
     .getElementById(
         "terminateBtn"
     )
@@ -200,6 +178,7 @@ document
                 );
 
                 return;
+
             }
 
             const confirmed =
