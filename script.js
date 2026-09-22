@@ -15,14 +15,43 @@ async function loadQueuedCalls() {
         "Loading queued calls..."
     );
 
-    // Placeholder
-    // Later:
-    // Search API call goes here
+    try {
 
-    renderCalls();
+        //
+        // Temporary test data
+        //
+
+        calls = [
+            {
+                interactionId: "abc123",
+                queue: "Customer Service",
+                wait: "04:32:14",
+                ani: "16125551212"
+            },
+            {
+                interactionId: "xyz456",
+                queue: "Tech Support",
+                wait: "00:15:22",
+                ani: "16125559999"
+            }
+        ];
+
+        renderCalls();
+
+        updateSelectedCount();
+
+        updateCardSelection();
+
+    }
+    catch(error) {
+
+        console.error(
+            error
+        );
+
+    }
 
 }
-
 // ===========================================
 // RENDER CALLS
 // ===========================================
