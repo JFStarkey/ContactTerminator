@@ -3,20 +3,7 @@
 // VERSION 2 FOUNDATION
 // ===========================================
 
-let calls = [
-    {
-        interactionId: "abc123",
-        queue: "Customer Service",
-        wait: "04:32:14",
-        ani: "16125551212"
-    },
-    {
-        interactionId: "xyz456",
-        queue: "Tech Support",
-        wait: "00:15:22",
-        ani: "16125559999"
-    }
-];
+let calls = [];
 
 // ===========================================
 // LOAD DATA
