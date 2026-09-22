@@ -34,10 +34,12 @@ function renderCalls() {
 
         div.innerHTML = `
             <input
-                type="checkbox"
-                class="callCheckbox"
-                data-id="${call.interactionId}"
-            >
+    type="checkbox"
+    class="callCheckbox"
+    data-id="${call.interactionId}"
+    ${selectedIds.includes(call.interactionId) ? "checked" : ""}
+>
+
 
             <div>
 
@@ -156,9 +158,68 @@ document
         "click",
         () => {
 
-            renderCalls();
+            const selectedIds =
+                Array.from(
+                    document.querySelectorAll(
+                        ".callCheckbox:checked"
+                    )
+                ).map(
+                    checkbox =>
+                        checkbox.dataset.id
+                );
+
+            renderCalls(
+                selectedIds
+            );
 
             updateSelectedCount();
+
+            updateCardSelection();
+
+        }
+    );
+  document
+    .getElementById(
+        "terminateBtn"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            const selected =
+                document.querySelectorAll(
+                    ".callCheckbox:checked"
+                );
+
+            if (
+                selected.length === 0
+            ) {
+
+                alert(
+                    "No contacts selected."
+                );
+
+                return;
+            }
+
+            const confirmed =
+                confirm(
+                    `Terminate ${selected.length} contact(s)?`
+                );
+
+            if (!confirmed)
+                return;
+
+            const interactionIds =
+                Array.from(selected)
+                    .map(
+                        checkbox =>
+                            checkbox.dataset.id
+                    );
+
+            console.log(
+                interactionIds
+            );
 
         }
     );
