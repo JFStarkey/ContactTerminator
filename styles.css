@@ -21,6 +21,18 @@ body {
 
 }
 
+.callCard.selected {
+
+    border: 2px solid #C00000;
+
+    background-color: #FFF0F0;
+
+    box-shadow:
+        0px 0px 6px
+        rgba(192,0,0,.25);
+
+}
+
 .actionBar {
 
     display: flex;
