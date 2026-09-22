@@ -82,7 +82,11 @@ checkbox.addEventListener(
         container.appendChild(div);
 
     });
-
+document.getElementById(
+    "callCount"
+).innerText =
+    `Active Calls: ${calls.length}`;
+``
 }
 function updateSelectedCount() {
 
@@ -142,7 +146,7 @@ function updateCardSelection() {
 
 }
 
-renderCalls();
+function renderCalls(selectedIds = []) {
 
 updateSelectedCount();
 
