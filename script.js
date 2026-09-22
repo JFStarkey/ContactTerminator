@@ -50,58 +50,6 @@ async function loadQueuedCalls() {
             "Loading queued calls..."
         );
 
-        const startTime =
-            Date.now() -
-            (24 * 60 * 60 * 1000);
-
-        const endTime =
-            Date.now();
-
-        console.log(
-            "Start:",
-            startTime
-        );
-
-        console.log(
-            "End:",
-            endTime
-        );
-
-        const query = `
-        {
-          taskDetails(
-            from: ${Date.now() - 86400000}
-            to: ${Date.now()}
-            filter: {
-              and: [
-                { channelType: { equals: telephony } }
-                { status: { equals: "parked" } }
-                { direction: { equals: "inbound" } }
-                { isActive: { equals: true } }
-              ]
-            }
-          ) {
-            tasks {
-              id
-              origin
-              destination
-              isActive
-              direction
-              owner {
-                id
-                name
-              }
-              lastEntryPoint {
-                id
-                name
-              }
-            }
-          }
-        }
-        `;
-
-        console.log(query);
-
         const testResponse = {
             tasks: [
                 {
@@ -140,7 +88,10 @@ async function loadQueuedCalls() {
     }
     catch(error) {
 
-        console.error(error);
+        console.error(
+            "Load failed:",
+            error
+        );
 
     }
 
