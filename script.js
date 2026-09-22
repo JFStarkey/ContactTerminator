@@ -36,6 +36,7 @@ function renderCalls() {
         div.innerHTML = `
             <input
                 type="checkbox"
+                class="callCheckbox"
                 data-id="${call.interactionId}"
             >
 
@@ -45,6 +46,12 @@ function renderCalls() {
                     ${call.queue}
                 </strong>
 
+                <br>
+                
+                ANI: ${call.ani}
+                
+                <br>
+                
                 <br>
 
                 Wait:
