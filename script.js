@@ -15,34 +15,102 @@ async function loadQueuedCalls() {
         "Loading queued calls..."
     );
 
-    try {
+    const query = `
+    {
+      taskDetails(
+        from: ${Date.now() - 86400000}
+        to: ${Date.now()}
+        filter: {
+          and: [
+            { channelType: { equals: telephony } }
+            { status: { equals: "parked" } }
+            { direction: { equals: "inbound" } }
+            { isActive: { equals: true } }
+          ]
+        }
+      ) {
+        tasks {
+          id
+          origin
+          destination
+          isActive
+          direction
+          owner {
+            id
+            name
+          }
+          lastEntryPoint {
+            id
+            name
+          }
+        }
+      }
+    }
+    `;
 
-        //
-        // Temporary test data
-        //
+    console.log(
+        "GraphQL Query:"
+    );
 
-        calls = [
+    console.log(
+        query
+    );
+
+    //
+    // TEMPORARY TEST DATA
+    // We will replace this
+    // with a live API response later
+    //
+
+    const testResponse = {
+        tasks: [
             {
-                interactionId: "abc123",
-                queue: "Customer Service",
-                wait: "04:32:14",
-                ani: "16125551212"
+                id: "abc123",
+                origin: "16125551212",
+                lastEntryPoint: {
+                    name: "Customer Service"
+                }
             },
             {
-                interactionId: "xyz456",
-                queue: "Tech Support",
-                wait: "00:15:22",
-                ani: "16125559999"
+                id: "xyz456",
+                origin: "16125559999",
+                lastEntryPoint: {
+                    name: "Tech Support"
+                }
             }
-        ];
+        ]
+    };
 
-        renderCalls();
+    calls =
+        testResponse.tasks.map(
+            task => {
 
-        updateSelectedCount();
+                return {
+                    interactionId:
+                        task.id,
 
-        updateCardSelection();
+                    queue:
+                        task.lastEntryPoint?.name ||
+                        "Unknown",
 
-    }
+                    ani:
+                        task.origin,
+
+                    wait:
+                        "00:00:00"
+                };
+
+            }
+        );
+
+    renderCalls();
+
+    updateSelectedCount();
+
+    updateCardSelection();
+
+}
+
     catch(error) {
 
         console.error(
