@@ -71,7 +71,13 @@ function renderCalls() {
 
 checkbox.addEventListener(
     "click",
-    updateSelectedCount
+    () => {
+
+        updateSelectedCount();
+
+        updateCardSelection();
+
+    }
 );
         container.appendChild(div);
 
@@ -99,6 +105,56 @@ function updateSelectedCount() {
         `Terminate Selected (${checked})`;
 
 }
+
+function updateCardSelection() {
+
+    document
+        .querySelectorAll(
+            ".callCheckbox"
+        )
+        .forEach(
+            checkbox => {
+
+                const card =
+                    checkbox.closest(
+                        ".callCard"
+                    );
+
+                if(
+                    checkbox.checked
+                ) {
+
+                    card.classList.add(
+                        "selected"
+                    );
+
+                }
+                else {
+
+                    card.classList.remove(
+                        "selected"
+                    );
+
+                }
+
+            }
+        );
+
+}
+
 renderCalls();
 
 updateSelectedCount();
+
+document
+    .getElementById("refreshBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            renderCalls();
+
+            updateSelectedCount();
+
+        }
+    );
