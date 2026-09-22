@@ -12,7 +12,6 @@ const calls = [
     ani: "16125559999"
   }
 ];
-``
 
 function renderCalls() {
 
@@ -71,7 +70,7 @@ function renderCalls() {
     );
 
 checkbox.addEventListener(
-    "change",
+    "click",
     updateSelectedCount
 );
         container.appendChild(div);
@@ -86,13 +85,20 @@ function updateSelectedCount() {
             ".callCheckbox:checked"
         ).length;
 
-    document.getElementById(
-        "terminateBtn"
-    ).textContent =
+    console.log(
+        "Checked count:",
+        checked
+    );
+
+    const button =
+        document.getElementById(
+            "terminateBtn"
+        );
+
+    button.innerText =
         `Terminate Selected (${checked})`;
 
 }
-
 renderCalls();
 
 updateSelectedCount();
