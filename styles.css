@@ -21,6 +21,32 @@ body {
 
 }
 
+.actionBar {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+}
+
+#refreshBtn {
+
+    background: #003B71;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 20px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+}
+
 #terminateBtn {
 
     background: #C00000;
@@ -35,5 +61,4 @@ body {
 
     cursor: pointer;
 
-    margin-bottom: 20px;
 }
