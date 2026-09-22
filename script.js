@@ -65,10 +65,34 @@ function renderCalls() {
             </div>
         `;
 
+      const checkbox =
+    div.querySelector(
+        ".callCheckbox"
+    );
+
+checkbox.addEventListener(
+    "change",
+    updateSelectedCount
+);
         container.appendChild(div);
 
     });
 
 }
+function updateSelectedCount() {
+
+    const checked =
+        document.querySelectorAll(
+            ".callCheckbox:checked"
+        ).length;
+
+    document.getElementById(
+        "terminateBtn"
+    ).textContent =
+        `Terminate Selected (${checked})`;
+
+}
 
 renderCalls();
+
+updateSelectedCount();
