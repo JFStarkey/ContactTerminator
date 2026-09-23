@@ -50,23 +50,16 @@ async function loadQueuedCalls() {
             "Loading queued calls..."
         );
 
-        const testResponse = {
-            tasks: [
-                {
-                    id: "abc123",
-                    origin: "16125551212",
-                    lastEntryPoint: {
-                        name: "Customer Service"
-                    }
-                },
-                {
-                    id: "xyz456",
-                    origin: "16125559999",
-                    lastEntryPoint: {
-                        name: "Tech Support"
-                    }
-                }
-            ]
+        const response = await fetch(
+    SEARCH_API_URL,
+    {
+        method: "POST",
+        headers: {
+            ...
+        },
+        body: ...
+    }
+);
         };
 
         calls =
