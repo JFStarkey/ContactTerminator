@@ -12,48 +12,30 @@ let accessToken = null;
 
 async function loadQueuedCalls() {
 
-    try {
+    calls = [
+        {
+            interactionId: "abc123",
+            queue: "Customer Service",
+            ani: "16125551212",
+            wait: "00:00:00"
+        },
+        {
+            interactionId: "xyz456",
+            queue: "Tech Support",
+            ani: "16125559999",
+            wait: "00:00:00"
+        }
+    ];
 
-        console.log(
-            "Loading queued calls..."
-        );
+    console.log("Calls Loaded", calls);
 
-        const testResponse = {
-            tasks: [
-                {
-                    id: "abc123",
-                    origin: "16125551212",
-                    lastEntryPoint: {
-                        name: "Customer Service"
-                    }
-                },
-                {
-                    id: "xyz456",
-                    origin: "16125559999",
-                    lastEntryPoint: {
-                        name: "Tech Support"
-                    }
-                }
-            ]
-        };
+    renderCalls();
 
-        calls =
-            testResponse.tasks.map(
-                task => ({
-                    interactionId: task.id,
-                    queue: task.lastEntryPoint?.name || "Unknown",
-                    ani: task.origin,
-                    wait: "00:00:00"
-                })
-            );
+    updateSelectedCount();
 
-        renderCalls();
+    updateCardSelection();
 
-        updateSelectedCount();
-
-        updateCardSelection();
-
-    }
+}
     catch (error) {
 
         console.error(
