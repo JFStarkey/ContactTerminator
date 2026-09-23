@@ -85,7 +85,7 @@ function renderCalls() {
                 ${call.interactionId}
 
             </div>
-        `;
+        );
 
         const checkbox =
             div.querySelector(
