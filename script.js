@@ -51,18 +51,25 @@ async function loadQueuedCalls() {
         console.log(
             "Loading queued calls..."
         );
-
-        const response = await fetch(
-    SEARCH_API_URL,
-    {
-        method: "POST",
-        headers: {
-            ...
+      
+        const testResponse = {
+    tasks: [
+        {
+            id: "abc123",
+            origin: "16125551212",
+            lastEntryPoint: {
+                name: "Customer Service"
+            }
         },
-        body: ...
-    }
-);
-        };
+        {
+            id: "xyz456",
+            origin: "16125559999",
+            lastEntryPoint: {
+                name: "Tech Support"
+            }
+        }
+    ]
+};
 
         calls =
             testResponse.tasks.map(
@@ -326,6 +333,16 @@ document
         "click",
         terminateSelectedCalls
     );
+
+window.addEventListener("load", async () => {
+
+    console.log("PAGE LOADED");
+
+    console.log("window.Wxcc =");
+
+    console.log(window.Wxcc);
+
+});
 
 loadQueuedCalls();
 
