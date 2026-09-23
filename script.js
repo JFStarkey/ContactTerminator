@@ -6,43 +6,9 @@
 let calls = [];
 let accessToken = null;
 
-
 // ===========================================
 // LOAD DATA
 // ===========================================
-
-const QUEUED_TASKS_QUERY = `
-{
-  taskDetails(
-    from: START_TIME
-    to: END_TIME
-    filter: {
-      and: [
-        { channelType: { equals: telephony } }
-        { status: { equals: "parked" } }
-        { direction: { equals: "inbound" } }
-        { isActive: { equals: true } }
-      ]
-    }
-  ) {
-    tasks {
-      id
-      origin
-      destination
-      isActive
-      direction
-      owner {
-        id
-        name
-      }
-      lastEntryPoint {
-        id
-        name
-      }
-    }
-  }
-}
-`;
 
 async function loadQueuedCalls() {
 
@@ -51,25 +17,25 @@ async function loadQueuedCalls() {
         console.log(
             "Loading queued calls..."
         );
-      
+
         const testResponse = {
-    tasks: [
-        {
-            id: "abc123",
-            origin: "16125551212",
-            lastEntryPoint: {
-                name: "Customer Service"
-            }
-        },
-        {
-            id: "xyz456",
-            origin: "16125559999",
-            lastEntryPoint: {
-                name: "Tech Support"
-            }
-        }
-    ]
-};
+            tasks: [
+                {
+                    id: "abc123",
+                    origin: "16125551212",
+                    lastEntryPoint: {
+                        name: "Customer Service"
+                    }
+                },
+                {
+                    id: "xyz456",
+                    origin: "16125559999",
+                    lastEntryPoint: {
+                        name: "Tech Support"
+                    }
+                }
+            ]
+        };
 
         calls =
             testResponse.tasks.map(
@@ -88,7 +54,7 @@ async function loadQueuedCalls() {
         updateCardSelection();
 
     }
-    catch(error) {
+    catch (error) {
 
         console.error(
             "Load failed:",
@@ -98,6 +64,7 @@ async function loadQueuedCalls() {
     }
 
 }
+
 // ===========================================
 // RENDER CALLS
 // ===========================================
@@ -122,6 +89,7 @@ function renderCalls() {
             "callCard";
 
         div.innerHTML = `
+
             <input
                 type="checkbox"
                 class="callCheckbox"
@@ -146,6 +114,7 @@ function renderCalls() {
                 ${call.interactionId}
 
             </div>
+
         `;
 
         const checkbox =
@@ -154,196 +123,4 @@ function renderCalls() {
             );
 
         checkbox.addEventListener(
-            "change",
-            handleCheckboxChange
-        );
-
-        container.appendChild(
-            div
-        );
-
-    });
-
-    updateCallCount();
-
-}
-
-// ===========================================
-// COUNTERS
-// ===========================================
-
-function updateCallCount() {
-
-    document.getElementById(
-        "callCount"
-    ).innerText =
-        `Active Calls: ${calls.length}`;
-
-}
-
-function updateSelectedCount() {
-
-    const checked =
-        document.querySelectorAll(
-            ".callCheckbox:checked"
-        ).length;
-
-    document.getElementById(
-        "terminateBtn"
-    ).innerText =
-        `Terminate Selected (${checked})`;
-
-}
-
-// ===========================================
-// CARD HIGHLIGHTING
-// ===========================================
-
-function updateCardSelection() {
-
-    document
-        .querySelectorAll(
-            ".callCheckbox"
-        )
-        .forEach(
-            checkbox => {
-
-                const card =
-                    checkbox.closest(
-                        ".callCard"
-                    );
-
-                if (
-                    checkbox.checked
-                ) {
-
-                    card.classList.add(
-                        "selected"
-                    );
-
-                }
-                else {
-
-                    card.classList.remove(
-                        "selected"
-                    );
-
-                }
-
-            }
-        );
-
-}
-
-// ===========================================
-// CHECKBOX EVENT
-// ===========================================
-
-function handleCheckboxChange() {
-
-    updateSelectedCount();
-
-    updateCardSelection();
-
-}
-
-// ===========================================
-// REFRESH
-// ===========================================
-
-function refreshCalls() {
-
-    console.log(
-        "Refresh requested"
-    );
-
-    loadQueuedCalls();
-
-}
-
-// ===========================================
-// TERMINATE
-// ===========================================
-
-function terminateSelectedCalls() {
-
-    const selected =
-        document.querySelectorAll(
-            ".callCheckbox:checked"
-        );
-
-    if (
-        selected.length === 0
-    ) {
-
-        alert(
-            "No contacts selected."
-        );
-
-        return;
-
-    }
-
-    const confirmed =
-        confirm(
-            `Terminate ${selected.length} contact(s)?`
-        );
-
-    if (
-        !confirmed
-    ) {
-        return;
-    }
-
-    const interactionIds =
-        Array.from(selected)
-        .map(
-            checkbox =>
-                checkbox.dataset.id
-        );
-
-    console.log(
-        "Terminate these:",
-        interactionIds
-    );
-
-    // Later:
-    // End Task API call goes here
-
-}
-
-// ===========================================
-// STARTUP
-// ===========================================
-
-document
-    .getElementById(
-        "refreshBtn"
-    )
-    .addEventListener(
-        "click",
-        refreshCalls
-    );
-
-document
-    .getElementById(
-        "terminateBtn"
-    )
-    .addEventListener(
-        "click",
-        terminateSelectedCalls
-    );
-
-window.addEventListener("load", async () => {
-
-    console.log("PAGE LOADED");
-
-    console.log("window.Wxcc =");
-
-    console.log(window.Wxcc);
-
-});
-
-loadQueuedCalls();
-
-updateSelectedCount();
+            "change
