@@ -1,66 +1,43 @@
-// ===========================================
-// CONTACT TERMINATOR
-// VERSION 2 FOUNDATION
-// ===========================================
-
 let calls = [];
-let accessToken = null;
-
-// ===========================================
-// LOAD DATA
-// ===========================================
 
 async function loadQueuedCalls() {
+
+    // TEMP DATA
+    // Replace with API later
 
     calls = [
         {
             interactionId: "abc123",
             queue: "Customer Service",
             ani: "16125551212",
-            wait: "00:00:00"
+            wait: "00:05:22"
         },
         {
             interactionId: "xyz456",
             queue: "Tech Support",
             ani: "16125559999",
-            wait: "00:00:00"
+            wait: "00:12:41"
         }
     ];
 
-    console.log("Calls Loaded:", calls);
-
     renderCalls();
-
-    updateSelectedCount();
-
-    updateCardSelection();
-
 }
-
-// ===========================================
-// RENDER CALLS
-// ===========================================
 
 function renderCalls() {
 
     const container =
-        document.getElementById(
-            "callContainer"
-        );
+        document.getElementById("callContainer");
 
     container.innerHTML = "";
 
     calls.forEach(call => {
 
-        const div =
-            document.createElement(
-                "div"
-            );
+        const card =
+            document.createElement("div");
 
-        div.className =
-            "callCard";
+        card.className = "callCard";
 
-        div.innerHTML = `
+        card.innerHTML = `
             <input
                 type="checkbox"
                 class="callCheckbox"
@@ -68,209 +45,110 @@ function renderCalls() {
             >
 
             <div>
-
                 <strong>${call.queue}</strong>
-
                 <br>
-
                 ANI: ${call.ani}
-
-                <br><br>
-
-                Wait: ${call.wait}
-
                 <br>
-
-                Interaction:
-                ${call.interactionId}
-
+                Wait: ${call.wait}
+                <br>
+                Interaction: ${call.interactionId}
             </div>
         `;
 
-        const checkbox =
-            div.querySelector(
-                ".callCheckbox"
-            );
-
-        checkbox.addEventListener(
-            "change",
-            handleCheckboxChange
-        );
-
-        container.appendChild(
-            div
-        );
+        container.appendChild(card);
 
     });
 
-    updateCallCount();
-
+    updateCounts();
 }
 
-// ===========================================
-// COUNTERS
-// ===========================================
-
-function updateCallCount() {
+function updateCounts() {
 
     document.getElementById(
         "callCount"
-    ).innerText =
+    ).textContent =
         `Active Calls: ${calls.length}`;
 
-}
-
-function updateSelectedCount() {
-
-    const checked =
+    const selected =
         document.querySelectorAll(
             ".callCheckbox:checked"
         ).length;
 
     document.getElementById(
         "terminateBtn"
-    ).innerText =
-        `Terminate Selected (${checked})`;
-
+    ).textContent =
+        `Terminate Selected (${selected})`;
 }
-
-// ===========================================
-// CARD HIGHLIGHTING
-// ===========================================
-
-function updateCardSelection() {
-
-    document
-        .querySelectorAll(
-            ".callCheckbox"
-        )
-        .forEach(
-            checkbox => {
-
-                const card =
-                    checkbox.closest(
-                        ".callCard"
-                    );
-
-                if (
-                    checkbox.checked
-                ) {
-
-                    card.classList.add(
-                        "selected"
-                    );
-
-                } else {
-
-                    card.classList.remove(
-                        "selected"
-                    );
-
-                }
-
-            }
-        );
-
-}
-
-// ===========================================
-// CHECKBOX EVENT
-// ===========================================
-
-function handleCheckboxChange() {
-
-    updateSelectedCount();
-
-    updateCardSelection();
-
-}
-
-// ===========================================
-// REFRESH
-// ===========================================
-
-function refreshCalls() {
-
-    console.log(
-        "Refresh requested"
-    );
-
-    loadQueuedCalls();
-
-}
-
-// ===========================================
-// TERMINATE
-// ===========================================
 
 function terminateSelectedCalls() {
 
     const selected =
-        document.querySelectorAll(
-            ".callCheckbox:checked"
+        Array.from(
+            document.querySelectorAll(
+                ".callCheckbox:checked"
+            )
         );
 
-    if (
-        selected.length === 0
-    ) {
+    if (selected.length === 0) {
 
         alert(
             "No contacts selected."
         );
 
         return;
-
-    }
-
-    const confirmed =
-        confirm(
-            `Terminate ${selected.length} contact(s)?`
-        );
-
-    if (
-        !confirmed
-    ) {
-
-        return;
-
     }
 
     const interactionIds =
-        Array.from(selected)
-        .map(
-            checkbox =>
-                checkbox.dataset.id
+        selected.map(
+            checkbox => checkbox.dataset.id
         );
 
     console.log(
-        "Terminate these:",
+        "Terminate:",
         interactionIds
     );
 
+    alert(
+        `Selected ${interactionIds.length} contact(s)`
+    );
 }
 
-// ===========================================
-// STARTUP
-// ===========================================
+function refreshCalls() {
+
+    console.log(
+        "Refreshing..."
+    );
+
+    loadQueuedCalls();
+}
 
 document
-    .getElementById(
-        "refreshBtn"
-    )
+    .getElementById("refreshBtn")
     .addEventListener(
         "click",
         refreshCalls
     );
 
 document
-    .getElementById(
-        "terminateBtn"
-    )
+    .getElementById("terminateBtn")
     .addEventListener(
         "click",
         terminateSelectedCalls
     );
 
-loadQueuedCalls();
+document.addEventListener(
+    "change",
+    function(event) {
 
-updateSelectedCount();
+        if (
+            event.target.classList.contains(
+                "callCheckbox"
+            )
+        ) {
+            updateCounts();
+        }
+
+    }
+);
+
+loadQueuedCalls();
