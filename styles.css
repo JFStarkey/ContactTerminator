@@ -3,74 +3,38 @@ body {
     padding: 20px;
 }
 
-.callCard {
-
-    border: 1px solid #ccc;
-
-    border-radius: 10px;
-
-    padding: 10px;
-
-    margin-bottom: 10px;
-
-    display: flex;
-
-    gap: 15px;
-
-    align-items: center;
-
-}
-
-.callCard.selected {
-
-    border: 2px solid #C00000;
-
-    background-color: #FFF0F0;
-
-    box-shadow:
-        0px 0px 6px
-        rgba(192,0,0,.25);
-
+#callCount {
+    margin-bottom: 15px;
+    font-weight: bold;
 }
 
 .actionBar {
-
     display: flex;
-
     gap: 10px;
-
     margin-bottom: 20px;
-
 }
 
 #refreshBtn {
-
     background: #003B71;
-
     color: white;
-
     border: none;
-
     padding: 10px 20px;
-
-    border-radius: 6px;
-
     cursor: pointer;
-
 }
 
 #terminateBtn {
-
     background: #C00000;
-
     color: white;
-
     border: none;
-
     padding: 10px 20px;
-
-    border-radius: 6px;
-
     cursor: pointer;
+}
 
+.callCard {
+    border: 1px solid #cccccc;
+    padding: 10px;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
 }
