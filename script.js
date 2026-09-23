@@ -27,23 +27,13 @@ async function loadQueuedCalls() {
         }
     ];
 
-    console.log("Calls Loaded", calls);
+    console.log("Calls Loaded:", calls);
 
     renderCalls();
 
     updateSelectedCount();
 
     updateCardSelection();
-
-}
-    catch (error) {
-
-        console.error(
-            "Load failed:",
-            error
-        );
-
-    }
 
 }
 
@@ -71,7 +61,6 @@ function renderCalls() {
             "callCard";
 
         div.innerHTML = `
-
             <input
                 type="checkbox"
                 class="callCheckbox"
@@ -96,7 +85,6 @@ function renderCalls() {
                 ${call.interactionId}
 
             </div>
-
         `;
 
         const checkbox =
@@ -105,4 +93,14 @@ function renderCalls() {
             );
 
         checkbox.addEventListener(
-            "change
+            "change",
+            handleCheckboxChange
+        );
+
+        container.appendChild(
+            div
+        );
+
+    });
+
+    updateCallCount(
