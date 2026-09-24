@@ -6,18 +6,18 @@ async function loadQueuedCalls() {
     // Replace with API later
 
     calls = [
-        {
-            interactionId: "abc123",
-            queue: "Customer Service",
-            ani: "16125551212",
-            wait: "00:05:22"
-        },
-        {
-            interactionId: "xyz456",
-            queue: "Tech Support",
-            ani: "16125559999",
-            wait: "00:12:41"
-        }
+    {
+        interactionId: "abc123",
+        queue: "Reception",
+        ani: "16125551212",
+        wait: "00:05:22"
+    },
+    {
+        interactionId: "xyz456",
+        queue: "Customer Service",
+        ani: "16125559999",
+        wait: "00:12:41"
+    }
     ];
 
     renderCalls();
@@ -38,22 +38,24 @@ function renderCalls() {
         card.className = "callCard";
 
         card.innerHTML = `
-            <input
-                type="checkbox"
-                class="callCheckbox"
-                data-id="${call.interactionId}"
-            >
+    <input
+        type="checkbox"
+        class="callCheckbox"
+        data-id="${call.interactionId}"
+    >
 
-            <div>
-                <strong>${call.queue}</strong>
-                <br>
-                ANI: ${call.ani}
-                <br>
-                Wait: ${call.wait}
-                <br>
-                Interaction: ${call.interactionId}
-            </div>
-        `;
+    <div>
+        <strong>${call.queue}</strong>
+        <br>
+        Queue: ${call.queue}
+        <br>
+        ANI: ${call.ani}
+        <br>
+        Wait: ${call.wait}
+        <br>
+        Interaction: ${call.interactionId}
+    </div>
+`;
 
         container.appendChild(card);
 
