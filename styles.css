@@ -1,6 +1,12 @@
 body {
     font-family: Segoe UI, sans-serif;
     padding: 20px;
+    background: #ffffff;
+    color: #000000;
+}
+
+h1 {
+    margin-bottom: 20px;
 }
 
 #callCount {
@@ -19,6 +25,7 @@ body {
     color: white;
     border: none;
     padding: 10px 20px;
+    border-radius: 6px;
     cursor: pointer;
 }
 
@@ -27,14 +34,55 @@ body {
     color: white;
     border: none;
     padding: 10px 20px;
+    border-radius: 6px;
     cursor: pointer;
 }
 
 .callCard {
     border: 1px solid #cccccc;
+    border-radius: 8px;
     padding: 10px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     display: flex;
     gap: 10px;
     align-items: flex-start;
+    background: #ffffff;
+}
+
+.callCard strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* ==========================
+   DARK MODE
+   ========================== */
+
+@media (prefers-color-scheme: dark) {
+
+    body {
+        background: #1e1e1e;
+        color: #ffffff;
+    }
+
+    .callCard {
+        background: #2d2d2d;
+        border-color: #555555;
+    }
+
+    #callCount {
+        color: #ffffff;
+    }
+
+    #refreshBtn {
+        background: #1f4f8c;
+    }
+
+    #terminateBtn {
+        background: #d13438;
+    }
+
+    input[type="checkbox"] {
+        accent-color: #d13438;
+    }
 }
